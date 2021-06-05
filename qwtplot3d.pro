@@ -3,16 +3,18 @@
 
 TARGET            = qwtplot3d
 TEMPLATE          = lib
-CONFIG           += qt warn_on opengl thread zlib debug
+CONFIG           += qt warn_on opengl thread zlib debug staticlib
 MOC_DIR           = tmp
 OBJECTS_DIR       = tmp
-INCLUDEPATH       = include
+INCLUDEPATH       = include 
+INCLUDEPATH       += c:/Development/dep_32/include C:\Development\dep_32\include\gl
+LIBPATH       += c:/Development/dep_32/lib
 DEPENDPATH        = include src
 DESTDIR      			= lib
 #DESTDIR      			= ../../../lib
 QT += opengl
 
-win32:TEMPLATE    = vclib
+#win32:TEMPLATE    = vclib
 win32:CONFIG     += dll exceptions
 win32:dll:DEFINES    += QT_DLL QWT3D_DLL QWT3D_MAKEDLL
 win32:QMAKE_CXXFLAGS     += $$QMAKE_CFLAGS_STL
