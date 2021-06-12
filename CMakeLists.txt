@@ -174,6 +174,9 @@ set(SOURCES ${SOURCES} ${MOC_FILES})
 add_library(qwtplot3d STATIC ${SOURCES} ${HEADERS})
 QT_BIND_TO_TARGET(qwtplot3d)
 
+find_package( OpenGL COMPONENTS OpenGL REQUIRED )
+target_link_libraries( qwtplot3d  OpenGL::GLU )
+
 if (ZLIB_FOUND)
 target_link_libraries(qwtplot3d ${ZLIB_LIBRARIES})
 endif(ZLIB_FOUND)
