@@ -161,15 +161,7 @@ endif()
 include(${CMAKE_CURRENT_SOURCE_DIR}/ChooseQtVersion.cmake)
 QT_FIND_MODULES(Core Gui OpenGL Xml)
 
-if (Qt5_FOUND)
-  qt5_wrap_cpp(MOC_FILES ${MOC_HEADERS})
-  set(QTVERSION 5)
-elseif(Qt4_FOUND OR QT4_FOUND)
-  qt4_wrap_cpp(MOC_FILES ${MOC_HEADERS})
-endif()
-
-set(SOURCES ${SOURCES} ${MOC_FILES})
-
+set( CMAKE_AUTOMOC ON )
 
 add_library(qwtplot3d STATIC ${SOURCES} ${HEADERS})
 QT_BIND_TO_TARGET(qwtplot3d)
