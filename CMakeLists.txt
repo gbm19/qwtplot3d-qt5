@@ -184,3 +184,9 @@ INSTALL(TARGETS qwtplot3d
         RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+
+option( BUILD_EXAMPLES "Build examples" OFF )
+if ( BUILD_EXAMPLES )
+    message( STATUS "Building examples" )
+    add_subdirectory( examples )
+endif()
