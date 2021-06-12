@@ -86,8 +86,6 @@ IO::Container &IO::rlist()
 {
     static Container rl = Container();
     static bool rfirst = true;
-    bool f = false;
-    f = rfirst;
     if (rfirst) {
         rfirst = false;
         setupHandler();
@@ -99,8 +97,6 @@ IO::Container &IO::wlist()
 {
     static Container wl = Container();
     static bool wfirst = true;
-    bool f = false;
-    f = wfirst;
     if (wfirst) {
         wfirst = false;
         setupHandler();
