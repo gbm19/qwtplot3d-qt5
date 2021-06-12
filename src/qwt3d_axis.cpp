@@ -5,7 +5,7 @@ using namespace Qwt3D;
 Axis::Axis()
 {
     init();
-};
+}
 
 Axis::~Axis() { }
 
@@ -340,7 +340,7 @@ Triple Axis::biggestNumberString()
         if (width > ret.x)
             ret.x = width + markerLabel_[i].gap();
         if (height > ret.y)
-            ret.y = height + markerLabel_[i].gap();;
+            ret.y = height + markerLabel_[i].gap();
     }
     return ret;
 }
