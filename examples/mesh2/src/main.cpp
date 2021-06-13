@@ -10,7 +10,9 @@
 
 int main(int argc, char **argv)
 {
+#if QT_VERSION < 0x050000
     QApplication::setColorSpec(QApplication::CustomColor);
+#endif
     QApplication app(argc, argv);
 
 #if QT_VERSION < 0x050000
