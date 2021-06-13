@@ -38,7 +38,7 @@ double floorExt(int &exponent, double x, std::vector<double> &sortedmantissi)
   \param x Input value
   \return Mantissa
 */
-double floor125(int &exponent, double x)
+[[maybe_unused]] double floor125(int &exponent, double x)
 {
     std::vector<double> m(2);
     m[0] = 1;
