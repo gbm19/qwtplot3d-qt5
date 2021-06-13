@@ -36,6 +36,7 @@ Plot::Plot(QWidget *pw, int updateinterval) : SurfacePlot(pw)
     coordinates()->axes[X4].setLabelString("x");
     coordinates()->axes[Y4].setLabelString("y");
     coordinates()->axes[Z4].setLabelString("z");
+    show();
 
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(rotate()));
@@ -66,6 +67,7 @@ int main(int argc, char **argv)
     plot1->setCoordinateStyle(BOX);
     Saddle saddle(*plot1);
     saddle.create();
+    plot1->show();
     plot1->setTitle("Autoswitching axes");
     plot1->setBackgroundColor(RGBA(1, 1, 157. / 255));
     plot1->makeCurrent();

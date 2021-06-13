@@ -99,6 +99,7 @@ AxesMainWindow::AxesMainWindow(QWidget *parent) : DummyBase(parent)
     Items->addAction("&Log", this, SLOT(customScale()), QKeySequence("ALT+C"));
 #endif
 
+    show();
     plot->makeCurrent();
     plot->updateData();
 #if QT_VERSION < 0x050000

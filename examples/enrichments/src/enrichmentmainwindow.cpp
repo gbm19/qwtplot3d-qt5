@@ -32,6 +32,7 @@ EnrichmentMainWindow::EnrichmentMainWindow(QWidget *parent) : DummyBase(parent)
 #else
     setupUi(this);
     QGridLayout *grid = new QGridLayout(frame);
+    show();
 #endif
 
     plot = new SurfacePlot(frame);
@@ -65,6 +66,7 @@ EnrichmentMainWindow::EnrichmentMainWindow(QWidget *parent) : DummyBase(parent)
     plot->coordinates()->adjustNumbers(5);
 
     setColor();
+    plot->show();
     plot->updateData();
 #if QT_VERSION < 0x050000
     plot->updateGL();

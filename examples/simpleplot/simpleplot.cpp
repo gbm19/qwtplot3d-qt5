@@ -53,6 +53,7 @@ Plot::Plot()
 
     setCoordinateStyle(BOX);
 
+    show();
     updateData();
 #if QT_VERSION < 0x050000
     updateGL();
