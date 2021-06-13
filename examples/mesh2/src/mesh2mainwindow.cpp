@@ -443,7 +443,11 @@ void Mesh2MainWindow::pickPlotStyle(QAction *action)
         dataWidget->setPlotStyle(NOPLOT);
     }
     dataWidget->updateData();
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 void Mesh2MainWindow::pickFloorStyle(QAction *action)
@@ -460,7 +464,11 @@ void Mesh2MainWindow::pickFloorStyle(QAction *action)
     }
 
     dataWidget->updateData();
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 void Mesh2MainWindow::setLeftGrid(bool b)
@@ -501,7 +509,11 @@ void Mesh2MainWindow::setGrid(Qwt3D::SIDE s, bool b)
         sum &= ~s;
 
     dataWidget->coordinates()->setGridLines(sum != Qwt3D::NOSIDEGRID, sum != Qwt3D::NOSIDEGRID, sum);
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 void Mesh2MainWindow::resetColors()
@@ -528,7 +540,11 @@ void Mesh2MainWindow::resetColors()
     dataWidget->setDataColor(col_);
     dataWidget->updateData();
     dataWidget->updateNormals();
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 void Mesh2MainWindow::pickAxesColor()
@@ -538,7 +554,11 @@ void Mesh2MainWindow::pickAxesColor()
         return;
     RGBA rgb = Qt2GL(c);
     dataWidget->coordinates()->setAxesColor(rgb);
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 void Mesh2MainWindow::pickBgColor()
@@ -549,7 +569,11 @@ void Mesh2MainWindow::pickBgColor()
         return;
     RGBA rgb = Qt2GL(c);
     dataWidget->setBackgroundColor(rgb);
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 void Mesh2MainWindow::pickMeshColor()
@@ -561,7 +585,11 @@ void Mesh2MainWindow::pickMeshColor()
     RGBA rgb = Qt2GL(c);
     dataWidget->setMeshColor(rgb);
     dataWidget->updateData();
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 void Mesh2MainWindow::pickNumberColor()
@@ -572,7 +600,11 @@ void Mesh2MainWindow::pickNumberColor()
         return;
     RGBA rgb = Qt2GL(c);
     dataWidget->coordinates()->setNumberColor(rgb);
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 void Mesh2MainWindow::pickLabelColor()
@@ -582,7 +614,11 @@ void Mesh2MainWindow::pickLabelColor()
         return;
     RGBA rgb = Qt2GL(c);
     dataWidget->coordinates()->setLabelColor(rgb);
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 void Mesh2MainWindow::pickTitleColor()
 {
@@ -591,7 +627,11 @@ void Mesh2MainWindow::pickTitleColor()
         return;
     RGBA rgb = Qt2GL(c);
     dataWidget->setTitleColor(rgb);
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 void Mesh2MainWindow::pickLighting()
@@ -623,7 +663,11 @@ void Mesh2MainWindow::adaptDataColors(const QString &fileName)
     dataWidget->updateData();
     dataWidget->updateNormals();
     dataWidget->showColorLegend(legend_);
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 void Mesh2MainWindow::pickNumberFont()
@@ -634,7 +678,11 @@ void Mesh2MainWindow::pickNumberFont()
         return;
     }
     dataWidget->coordinates()->setNumberFont(font);
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 void Mesh2MainWindow::pickLabelFont()
 {
@@ -644,7 +692,11 @@ void Mesh2MainWindow::pickLabelFont()
         return;
     }
     dataWidget->coordinates()->setLabelFont(font);
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 void Mesh2MainWindow::pickTitleFont()
 {
@@ -661,7 +713,11 @@ void Mesh2MainWindow::resetFonts()
     dataWidget->coordinates()->setNumberFont(QFont("Courier", 12));
     dataWidget->coordinates()->setLabelFont(QFont("Courier", 14, QFont::Bold));
     dataWidget->setTitleFont("Arial", 14, QFont::Normal);
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 void Mesh2MainWindow::setStandardView()
@@ -735,7 +791,11 @@ void Mesh2MainWindow::toggleColorLegend(bool val)
 void Mesh2MainWindow::toggleAutoScale(bool val)
 {
     dataWidget->coordinates()->setAutoScale(val);
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 void Mesh2MainWindow::toggleShader(bool val)
@@ -750,7 +810,11 @@ void Mesh2MainWindow::setPolygonOffset(int val)
 {
     dataWidget->setPolygonOffset(val / 10.0);
     dataWidget->updateData();
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 void Mesh2MainWindow::showRotate(double x, double y, double z)
@@ -814,21 +878,33 @@ void Mesh2MainWindow::showNormals(bool val)
 {
     dataWidget->showNormals(val);
     dataWidget->updateNormals();
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 void Mesh2MainWindow::setNormalLength(int val)
 {
     dataWidget->setNormalLength(val / 400.);
     dataWidget->updateNormals();
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 void Mesh2MainWindow::setNormalQuality(int val)
 {
     dataWidget->setNormalQuality(val);
     dataWidget->updateNormals();
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }
 
 bool Mesh2MainWindow::openColorMap(ColorVector &cv, QString fname)
@@ -879,5 +955,9 @@ void Mesh2MainWindow::enableLighting(bool val)
 {
     dataWidget->enableLighting(val);
     dataWidget->illuminate(0);
+#if QT_VERSION < 0x050000
     dataWidget->updateGL();
+#else
+    dataWidget->update();
+#endif
 }

@@ -101,7 +101,11 @@ AxesMainWindow::AxesMainWindow(QWidget *parent) : DummyBase(parent)
 
     plot->makeCurrent();
     plot->updateData();
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 
     connect(smoothBox, SIGNAL(toggled(bool)), this, SLOT(setSmoothLines(bool)));
     connect(numbergapslider, SIGNAL(valueChanged(int)), this, SLOT(setNumberGap(int)));
@@ -127,20 +131,32 @@ void AxesMainWindow::setNumberGap(int gap)
 {
     plot->coordinates()->adjustNumbers(gap);
     plot->makeCurrent();
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 }
 
 void AxesMainWindow::setLabelGap(int gap)
 {
     plot->coordinates()->adjustLabels(gap);
     plot->makeCurrent();
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 }
 
 void AxesMainWindow::setSmoothLines(bool val)
 {
     plot->coordinates()->setLineSmooth(val);
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 }
 
 void AxesMainWindow::setTicLength(int val)
@@ -148,13 +164,21 @@ void AxesMainWindow::setTicLength(int val)
     double majl = (plot->coordinates()->second() - plot->coordinates()->first()).length() / 1000.;
     majl = majl * val;
     plot->coordinates()->setTicLength(majl, 0.6 * majl);
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 }
 
 void AxesMainWindow::setTicNumber(int degree)
 {
     plot->coordinates()->axes[X1].setMajors(tics + degree);
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 }
 
 void AxesMainWindow::resetTics()
@@ -171,7 +195,11 @@ void AxesMainWindow::resetTics()
 void AxesMainWindow::standardItems()
 {
     resetTics();
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 }
 
 void AxesMainWindow::letterItems()
@@ -189,7 +217,11 @@ void AxesMainWindow::letterItems()
     plot->coordinates()->axes[Y3].setScale(new Letter(false));
     plot->coordinates()->axes[Y4].setScale(new Letter(false));
     plot->setTitle("Use the tics slider for this example!");
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 }
 
 void AxesMainWindow::complexItems()
@@ -199,7 +231,11 @@ void AxesMainWindow::complexItems()
     plot->coordinates()->axes[Y2].setScale(new Imaginary);
     plot->coordinates()->axes[Y3].setScale(new Imaginary);
     plot->coordinates()->axes[Y4].setScale(new Imaginary);
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 }
 
 void AxesMainWindow::timeItems()
@@ -209,7 +245,11 @@ void AxesMainWindow::timeItems()
     plot->coordinates()->axes[Z2].setScale(new TimeItems);
     plot->coordinates()->axes[Z3].setScale(new TimeItems);
     plot->coordinates()->axes[Z4].setScale(new TimeItems);
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 }
 
 void AxesMainWindow::customScale()
@@ -227,5 +267,9 @@ void AxesMainWindow::customScale()
 
     plot->coordinates()->setGridLines(true, true, Qwt3D::BACK);
 
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 }

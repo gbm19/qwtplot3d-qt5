@@ -182,7 +182,11 @@ bool VectorWriter::operator()(Plot3D *plot, QString const &fname)
                 fp, QWT3DLOCAL8BIT(fname));
 
         plot->updateData();
+#if QT_VERSION < 0x050000
         plot->updateGL();
+#else
+        plot->update();
+#endif
         state = gl2psEndPage();
     }
     fclose(fp);
@@ -207,7 +211,11 @@ bool VectorWriter::operator()(Plot3D *plot, QString const &fname)
                     fp, QWT3DLOCAL8BIT(fn));
 
             plot->updateData();
+#if QT_VERSION < 0x050000
             plot->updateGL();
+#else
+            plot->update();
+#endif
             state = gl2psEndPage();
         }
         fclose(fp);

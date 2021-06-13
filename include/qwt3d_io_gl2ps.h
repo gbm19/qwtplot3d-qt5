@@ -5,8 +5,10 @@
 
 #if QT_VERSION < 0x040000
 #include <qgl.h>
-#else
+#elif QT_VERSION < 0x050000
 #include <QtOpenGL/qgl.h>
+#else
+#include <QOpenGLWidget>
 #endif
 
 #include "qwt3d_types.h"

@@ -54,7 +54,11 @@ Plot::Plot()
     setCoordinateStyle(BOX);
 
     updateData();
+#if QT_VERSION < 0x050000
     updateGL();
+#else
+    update();
+#endif
 }
 
 int main(int argc, char **argv)

@@ -70,7 +70,11 @@ int main(int argc, char **argv)
     plot1->setBackgroundColor(RGBA(1, 1, 157. / 255));
     plot1->makeCurrent();
     plot1->updateData();
+#if QT_VERSION < 0x050000
     plot1->updateGL();
+#else
+    plot1->update();
+#endif
 
     Plot *plot2 = new Plot(spl, 80);
     plot2->setZoom(0.8);
@@ -82,7 +86,11 @@ int main(int argc, char **argv)
     plot2->setBackgroundColor(RGBA(1, 1, 157. / 255));
     plot2->makeCurrent();
     plot2->updateData();
+#if QT_VERSION < 0x050000
     plot2->updateGL();
+#else
+    plot2->update();
+#endif
 
 
 #if QT_VERSION < 0x040000

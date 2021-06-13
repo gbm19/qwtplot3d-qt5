@@ -1,6 +1,12 @@
 #ifndef __plot3d__
 #define __plot3d__
 
+#if QT_VERSION < 0x050000
+#include <QGLWidget>
+#else
+#include <QOpenGLWidget>
+#endif
+
 #include "qwt3d_coordsys.h"
 #include "qwt3d_enrichment_std.h"
 
@@ -12,15 +18,21 @@ namespace Qwt3D {
   handling, labeling etc.. It contains some pure virtual functions and is, in so far, an abstract base class.
   The class provides interfaces for data handling and implements basic data controlled color allocation.
 */
+#if QT_VERSION < 0x050000
 class QWT3D_EXPORT Plot3D : public QGLWidget
+#else
+class QWT3D_EXPORT Plot3D : public QOpenGLWidget
+#endif
 {
     Q_OBJECT
 
 public:
 #if QT_VERSION < 0x040000
     Plot3D(QWidget *parent = 0, const char *name = 0);
-#else
+#elif QT_VERSION < 0x050000
     Plot3D(QWidget *parent = 0, const QGLWidget *shareWidget = 0);
+#else
+    Plot3D(QWidget *parent = 0);
 #endif
     virtual ~Plot3D();
 

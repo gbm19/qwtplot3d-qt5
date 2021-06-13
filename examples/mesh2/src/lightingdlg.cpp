@@ -139,35 +139,55 @@ void LightingDlg::setEmission(int val)
     if (!dataPlot)
         return;
     dataPlot->setMaterialComponent(GL_EMISSION, val / 100.);
+#if QT_VERSION < 0x050000
     dataPlot->updateGL();
+#else
+    dataPlot->update();
+#endif
 }
 void LightingDlg::setDiff(int val)
 {
     if (!dataPlot)
         return;
     dataPlot->setLightComponent(GL_DIFFUSE, val / 100.);
+#if QT_VERSION < 0x050000
     dataPlot->updateGL();
+#else
+    dataPlot->update();
+#endif
 }
 void LightingDlg::setSpec(int val)
 {
     if (!dataPlot)
         return;
     dataPlot->setMaterialComponent(GL_SPECULAR, val / 100.);
+#if QT_VERSION < 0x050000
     dataPlot->updateGL();
+#else
+    dataPlot->update();
+#endif
 }
 void LightingDlg::setShin(int val)
 {
     if (!dataPlot)
         return;
     dataPlot->setShininess(val / 100.);
+#if QT_VERSION < 0x050000
     dataPlot->updateGL();
+#else
+    dataPlot->update();
+#endif
 }
 
 void LightingDlg::reset()
 {
     plot->reset();
     if (dataPlot)
+#if QT_VERSION < 0x050000
         dataPlot->updateGL();
+#else
+        dataPlot->update();
+#endif
 }
 
 void LightingDlg::setDistance(int val)
@@ -175,13 +195,21 @@ void LightingDlg::setDistance(int val)
 
     plot->stick->setPos(0, 0, val / 100.);
     plot->updateData();
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 
     double drad = (dataPlot->hull().maxVertex - dataPlot->hull().minVertex).length();
     drad *= val / 20.;
 
     dataPlot->setLightShift(drad, drad, drad);
+#if QT_VERSION < 0x050000
     dataPlot->updateGL();
+#else
+    dataPlot->update();
+#endif
 }
 
 void LightingDlg::assign(Qwt3D::Plot3D *pl)
@@ -198,5 +226,9 @@ void LightingDlg::setRotation(double x, double y, double z)
 
     setDistance(distSL->value());
     dataPlot->setLightRotation(x, y, z);
+#if QT_VERSION < 0x050000
     dataPlot->updateGL();
+#else
+    dataPlot->update();
+#endif
 }

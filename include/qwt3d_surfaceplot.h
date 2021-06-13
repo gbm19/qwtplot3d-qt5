@@ -16,8 +16,10 @@ class QWT3D_EXPORT SurfacePlot : public Plot3D
 public:
 #if QT_VERSION < 0x040000
     SurfacePlot(QWidget *parent = 0, const char *name = 0);
-#else
+#elif QT_VERSION < 0x050000
     SurfacePlot(QWidget *parent = 0, const QGLWidget *shareWidget = 0);
+#else
+    SurfacePlot(QWidget *parent = 0);
 #endif
     ~SurfacePlot();
     void updateNormals(); //!< Recalculates surface normals;

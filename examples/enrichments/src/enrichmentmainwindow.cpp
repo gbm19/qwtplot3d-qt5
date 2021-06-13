@@ -66,7 +66,11 @@ EnrichmentMainWindow::EnrichmentMainWindow(QWidget *parent) : DummyBase(parent)
 
     setColor();
     plot->updateData();
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 
     levelSlider->setValue(50);
     level_ = 0.5;
@@ -115,7 +119,11 @@ void EnrichmentMainWindow::setLevel(int i)
     level_ = 1 - i / 100.;
     bar->configure(width_, level_);
     plot->updateData();
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 }
 
 void EnrichmentMainWindow::setWidth(int i)
@@ -123,7 +131,11 @@ void EnrichmentMainWindow::setWidth(int i)
     width_ = i / 20000.;
     bar->configure(width_, level_);
     plot->updateData();
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 }
 
 void EnrichmentMainWindow::barSlot()
@@ -131,5 +143,9 @@ void EnrichmentMainWindow::barSlot()
     Bar b(width_, level_);
     bar = (Bar *)plot->setPlotStyle(b);
     plot->updateData();
+#if QT_VERSION < 0x050000
     plot->updateGL();
+#else
+    plot->update();
+#endif
 }

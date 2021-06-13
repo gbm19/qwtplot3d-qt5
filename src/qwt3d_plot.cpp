@@ -13,8 +13,10 @@ using namespace Qwt3D;
 */
 #if QT_VERSION < 0x040000
 Plot3D::Plot3D(QWidget *parent, const char *name) : QGLWidget(parent, name)
-#else
+#elif QT_VERSION < 0x050000
 Plot3D::Plot3D(QWidget *parent, const QGLWidget *shareWidget) : QGLWidget(parent, shareWidget)
+#else
+Plot3D::Plot3D(QWidget *parent) : QOpenGLWidget(parent)
 #endif
 {
     initializedGL_ = false;
@@ -245,6 +247,7 @@ void Plot3D::resizeGL(int w, int h)
     paintGL();
 }
 
+#if QT_VERSION < 0x050000
 /*!
   Reimplemented from QGLWidget
 */
@@ -253,6 +256,7 @@ QPixmap Plot3D::renderPixmap(int w /* =0 */, int h /* =0 */, bool useContext /* 
     renderpixmaprequest_ = true;
     return QGLWidget::renderPixmap(w, h, useContext);
 }
+#endif
 
 /*!
         Create a coordinate system with generating corners beg and end
@@ -282,7 +286,11 @@ void Plot3D::showColorLegend(bool show)
     displaylegend_ = show;
     if (show)
         datacolor_p->createVector(legend_.colors);
+#if QT_VERSION < 0x050000
     updateGL();
+#else
+    update();
+#endif
 }
 
 void Plot3D::setMeshColor(RGBA rgba)
@@ -314,7 +322,11 @@ void Plot3D::setOrtho(bool val)
     if (val == ortho_)
         return;
     ortho_ = val;
+#if QT_VERSION < 0x050000
     updateGL();
+#else
+    update();
+#endif
 
     emit projectionChanged(val);
 }
@@ -325,7 +337,11 @@ void Plot3D::setOrtho(bool val)
 void Plot3D::setCoordinateStyle(COORDSTYLE st)
 {
     coordinates_p.setStyle(st);
+#if QT_VERSION < 0x050000
     updateGL();
+#else
+    update();
+#endif
 }
 
 /*!
@@ -375,7 +391,11 @@ void Plot3D::setShading(SHADINGSTYLE val)
     default:
         break;
     }
+#if QT_VERSION < 0x050000
     updateGL();
+#else
+    update();
+#endif
 }
 
 /*!

@@ -49,7 +49,11 @@ void Plot3D::enableLighting(bool val)
 
     if (!initializedGL())
         return;
+#if QT_VERSION < 0x050000
     updateGL();
+#else
+    update();
+#endif
 }
 
 void Plot3D::disableLighting(bool val)
