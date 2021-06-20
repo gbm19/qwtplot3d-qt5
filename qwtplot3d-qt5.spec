@@ -1,19 +1,20 @@
 %undefine __cmake_in_source_build
 
-%global commit 45df8fbad445dbb71bfc17672ea669e76688946c
+%global commit 7f652b86d649a8a3a8c8fe7cd53f0335c69555e3
 %global gittag %{commit}
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20200509
+%global commitdate 20210613
 
 Name:           qwtplot3d-qt5
 Version:        0.3.1a
-Release:        13.%{commitdate}git%{shortcommit}%{?dist}
+Release:        14.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Extended version of the original QwtPlot3D library
 # zlib/libpng is main license
 # LGPLv2+ or GL2PS is the license for 'gl2ps/' files
 License:        zlib and (LGPLv2+ or GL2PS)
 URL:            https://github.com/copasi/copasi-dependencies/tree/master/src/qwtplot3d-qt4
-Source0:        https://gitlab.com/anto.trande/qwtplot3d-qt4/-/archive/%{commit}/qwtplot3d-qt4-%{commit}.tar.gz
+Source0:        https://github.com/gbm19/qwtplot3d-qt5/archive/%{commit}.tar.gz
+
 Patch0:         qwtplot3d-qt5-build.patch
 
 Requires:       pkgconfig(Qt5Core)
@@ -23,7 +24,7 @@ Buildrequires:  qt5-rpm-macros, qt5-qtbase-devel
 #BuildRequires:  gl2ps-devel
 BuildRequires:  gcc-c++, zlib-devel
 
-Provides: bundled(gl2ps) = 1.3.2
+Provides: bundled(gl2ps) = 1.4.2
 
 %description
 QwtPlot3D is not a program, but a feature-rich Qt/OpenGL-based C++
@@ -39,18 +40,13 @@ The %{name}-devel package contains qt5 libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n qwtplot3d-qt4-%{commit} -p0
+%autosetup -n qwtplot3d-qt5-%{commit} -p0
 
 %build
 %cmake -Wno-dev \
  -DSELECT_QT=Qt5 \
- -DQT_QMAKE_EXECUTABLE:FILEPATH=%{_bindir}/qmake-qt5 \
- -DQWT_VERSION_STRING:STRING=6.1.3 \
- -DQWT_LIBRARY:FILEPATH=%{_qt5_libdir}/libqwt-qt5.so \
- -DQWT_INCLUDE_DIR:PATH=%{_qt5_headerdir}/qwt \
  -DCMAKE_BUILD_TYPE:STRING=Release \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
- -DCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags} -lGLU" \
  -DWITH_ZLIB:BOOL=ON \
  -DCMAKE_INSTALL_LIBDIR:PATH=%{_qt5_libdir} -DCMAKE_INSTALL_INCLUDEDIR:PATH=%{_qt5_headerdir}/%{name}
 %cmake_build
