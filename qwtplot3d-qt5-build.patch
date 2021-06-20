@@ -1,0 +1,51 @@
+--- CMakeLists.orig.txt	2018-05-05 15:35:52.000000000 +0200
++++ CMakeLists.txt	2018-05-05 16:58:07.622886840 +0200
+@@ -5,13 +5,19 @@
+ cmake_minimum_required (VERSION 2.6)
+ project (qwtplot3d)
+ 
++# Soname Version
++set(VERSION_MAJOR "0")
++set(VERSION_MINOR "3")
++set(VERSION_BugFix "1")
++set(PROJECT_VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_BugFix})
++
+ include(GNUInstallDirs)
+ 
+ include_directories("${PROJECT_SOURCE_DIR}")
+ include_directories("${PROJECT_SOURCE_DIR}/include")
+ 
+-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "qwtplot3d library")
+-set(CPACK_PACKAGE_NAME "qwtplot3d")
++set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "qwtplot3d-qt5 library")
++set(CPACK_PACKAGE_NAME "qwtplot3d-qt5")
+ set(CPACK_PACKAGE_VERSION_MAJOR "0")
+ set(CPACK_PACKAGE_VERSION_MINOR "2")
+ set(CPACK_PACKAGE_VERSION_PATCH "6")
+@@ -170,17 +176,20 @@
+ 
+ set(SOURCES ${SOURCES} ${MOC_FILES})
+ 
+-
+-add_library(qwtplot3d STATIC ${SOURCES} ${HEADERS})
+-QT_BIND_TO_TARGET(qwtplot3d)
++add_library(qwtplot3d-qt5 SHARED ${SOURCES} ${HEADERS})
++QT_BIND_TO_TARGET(qwtplot3d-qt5)
+ 
+ if (ZLIB_FOUND)
+-target_link_libraries(qwtplot3d ${ZLIB_LIBRARIES})
++target_link_libraries(qwtplot3d-qt5 ${ZLIB_LIBRARIES})
++else()
++target_link_libraries(qwtplot3d-qt5)
+ endif(ZLIB_FOUND)
+-
++set_target_properties(qwtplot3d-qt5 PROPERTIES
++  VERSION ${PROJECT_VERSION} SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR}
++  )
+ 
+ install(FILES ${HEADERS} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+-INSTALL(TARGETS qwtplot3d 
++INSTALL(TARGETS qwtplot3d-qt5 
+         RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}")
